@@ -21,3 +21,7 @@ set-window-option -g mode-keys vi
 # set selection and copy as vim in tmux
 bind-key -T copy-mode-vi 'v' send -X begin-selection
 bind-key -T copy-mode-vi 'y' send -X copy-selection-and-cancel
+
+# remap prefix from 'C-b' to 'C-a'
+unbind C-b
+set-option -g prefix C-a
