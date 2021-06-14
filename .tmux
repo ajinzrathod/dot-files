@@ -25,3 +25,7 @@ bind-key -T copy-mode-vi 'y' send -X copy-selection-and-cancel
 # remap prefix from 'C-b' to 'C-a'
 unbind C-b
 set-option -g prefix C-a
+
+# start from 1
+set -g base-index 1
+setw -g pane-base-index 1
