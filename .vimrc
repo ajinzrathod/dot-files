@@ -627,7 +627,7 @@ imap <leader>w <Esc>:w<CR>
 " noremap <C-v> "+p
 
 " Select and Copy All Lines in + Register
-noremap <C-a> mcgg"+yG`c<CR>
+noremap <C-t> <Esc>:%y+<CR>
 
 " Indent all lines in current working file
 noremap <C-i> <Esc>mcgg=G`c
@@ -663,9 +663,9 @@ set sessionoptions-=blank
 
 
 " enable line numbers in NERDTree
-let NERDTreeShowLineNumbers=1
+" let NERDTreeShowLineNumbers=1
 " make sure relative line numbers are used
-autocmd FileType nerdtree setlocal relativenumber
+" autocmd FileType nerdtree setlocal relativenumber
 
 inoremap <leader>sys System.out.println();<Esc>hi""<Esc>i
 inoremap <leader>psv public static void main(String[] args){<CR>}<Esc>ko
@@ -716,4 +716,9 @@ map <C-F2>  :ImportNameHere<CR>
 " nmap <silent> <F2>   :ImportSymbol<CR>
 " imap <silent> <F2>   <Esc>:ImportSymbol<CR>a
 
+" Remove Comments
 map <leader>yi yitvatp
+
+" Bind Esc in Caps Lock 
+au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
