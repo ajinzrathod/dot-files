@@ -19,8 +19,8 @@ alias gh='history|grep'
 # Example
 # $ gh bash
 # 482 cat ~/.bashrc | grep _alias
-# 498 emacs ~/.bashrc
-# 530 emacs ~/.bash_aliases
+# 498 vi ~/.bashrc
+# 530 vi ~/.bash_aliases
 # 531 source ~/.bashrc
 # ----------------------------------
 
@@ -53,3 +53,12 @@ alias cg='cd `git rev-parse --show-toplevel`'
 
 # ll will list hidden files in Fedora
 alias ll='ls -la'
+
+# l will also list files
+alias l='ls'
+
+# Start Postgresql
+alias ssp='sudo systemctl start postgresql'
+
+# Status Postgresql
+alias sstp='sudo systemctl status postgresql'
