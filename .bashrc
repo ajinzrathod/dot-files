@@ -15,6 +15,11 @@ export PS1="\n\[\e[01;31m\]\u\[\e[0m\]\[\e[00;37m\]@\[\e[0m\]\[\e[01;34m\]\h\[\e
 LS_COLORS="ow=01;93:ex=97"
 export LS_COLORS
 
-# For fedora, This is important because vim binary isn’t built with +clipboard support.
-alias vi=vimx
-alias vim=vimx
+function cs {
+    builtin cd "$@" && ls
+}
+
+# https://opensource.com/article/19/7/bash-aliasesk
+if [ -e $HOME/.bash_aliases ]; then
+    source $HOME/.bash_aliases
+fi
