@@ -1,3 +1,4 @@
+" Jai Swaminarayan
 " To use fancy symbols wherever possible, change this setting from 0 to 1
 " and use a font from https://github.com/ryanoasis/nerd-fonts in your terminal
 " (if you aren't using one of those fonts, you will see funny characters here.
@@ -36,6 +37,9 @@ endif
 if vim_plug_just_installed
     :execute 'source '.fnameescape(vim_plug_path)
 endif
+
+" Vundle Starts -------------------------------------------------------------
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -55,7 +59,7 @@ Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
 " Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -63,12 +67,9 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
-Plugin 'ascenator/L9', {'name': 'newL9'}
-"
-"
-" --------------------------------------------------------------------
-"
+" Plugin 'ascenator/L9', {'name': 'newL9'}
 
+" Custom Plugins Starts ------------------------------------------------------------------
 " Override configs by directory
 Plugin 'arielrossanigo/dir-configs-override.vim'
 " Code commenter
@@ -152,14 +153,18 @@ Plugin 'tomtom/tcomment_vim'
 " Django
 Plugin 'tweekmonster/django-plus.vim'
 " Javascript Correct Indentation
-Plugin 'jiangmiao/simple-javascript-indenter'
+" Plugin 'jiangmiao/simple-javascript-indenter'
+Plugin 'pangloss/vim-javascript'
 
 " NodeJS
 " ctrl + x, ctrl + o
 Plugin 'myhere/vim-nodejs-complete'
 
+" Syntax Check Python
+Plugin 'vim-syntastic/syntastic'
+
 " Java
-Plugin 'artur-shaik/vim-javacomplete2'
+" Plugin 'artur-shaik/vim-javacomplete2'
 " Python Autoimport
 Plugin 'mgedmin/python-imports.vim'
 " Plugin 'wookayin/vim-autoimport'
@@ -169,7 +174,7 @@ Plugin 'mgedmin/python-imports.vim'
 " XML/HTML tags navigation (neovim has its own)
 " Plug 'vim-scripts/matchit.zip'
 
-" ---------------------------------------------------------------------
+" Custom Plugins Ends --------------------------------------------------------------------
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -185,9 +190,8 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-"
-" -------------------------------------------------------------------
 
+" Vundle Ends -------------------------------------------------------------
 " *******************************************************************
 " A bunch of things that are set by default in neovim, but not in vim
 
@@ -717,8 +721,25 @@ map <C-F2>  :ImportNameHere<CR>
 " imap <silent> <F2>   <Esc>:ImportSymbol<CR>a
 
 " Remove Comments
-map <leader>yi yitvatp
+map <leader>y yitvatp
 
 " Bind Esc in Caps Lock 
 au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+" For Copy Paste(Fedora)
+set clipboard=unnamedplus
+
+" Start jinja for django static
+nmap <S-H> <Esc>a{% static '<Esc>
+nmap <S-L> <Esc>a' %}<Esc>
+
+" Syntastic Check
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+"
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
