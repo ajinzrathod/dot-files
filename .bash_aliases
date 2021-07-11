@@ -7,8 +7,8 @@
 # fi
 
 # Aliasing vi and vim to vimx
-alias vi=vimx
-alias vim=vimx
+# alias vi=vimx
+# alias vim=vimx
 
 # Sort by file size
 alias lt='ls --human-readable --size -1 -S --classify'
