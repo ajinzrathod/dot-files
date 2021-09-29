@@ -23,3 +23,9 @@ function cs {
 if [ -e $HOME/.bash_aliases ]; then
     source $HOME/.bash_aliases
 fi
+
+
+# Composer path so that laravel works
+export PATH=~/.config/composer/vendor/bin:$PATH
+
+export ANDROID_HOME=/usr/lib/android-sdk
