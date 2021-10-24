@@ -62,3 +62,27 @@ alias ssp='sudo systemctl start postgresql'
 
 # Status Postgresql
 alias sstp='sudo systemctl status postgresql'
+
+# Tomcat
+alias sst='sudo systemctl start tomcat'
+alias sstt='sudo systemctl status tomcat'
+alias ssrt='sudo systemctl restart tomcat'
+
+alias d1='cd ~/Documents/git/personal/cohen-s-kappa; va; cd ck; vi'
+alias d2='cd ~/Documents/git/personal/cohen-s-kappa; va; cd ck;'
+alias run='python manage.py runserver'
+
+
+# Start Apache2
+alias ssa='sudo systemctl start apache2'
+
+# Status Apache2
+alias ssta='sudo systemctl status apache2'
+
+# Start jupyter-notebook
+alias jn='jupyter-notebook'
+
+# update-alternatives java and javac
+alias uajava='sudo update-alternatives --config java'
+alias uajavac='sudo update-alternatives --config javac'
+alias javal='update-java-alternatives -l'
