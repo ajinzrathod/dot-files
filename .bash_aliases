@@ -86,3 +86,28 @@ alias jn='jupyter-notebook'
 alias uajava='sudo update-alternatives --config java'
 alias uajavac='sudo update-alternatives --config javac'
 alias javal='update-java-alternatives -l'
+
+# How do I reload the terminal in Ubuntu?
+
+# This will start a new bash login shell new loading your profile. It will
+# inherit the other shells environment though, unless some values are overridden.
+#
+# If you exit this bash, you'll be in your original shell again.
+alias bl='bash --login'
+
+# Dropping a database which is currently in use
+ct() {
+    # https://dotnetcrunch.wordpress.com/2013/07/12/sqlcmd-dropping-a-database-which-is-currently-in-use/
+    echo "Setting Single User..."
+    # Not sure but below line closes existing connections
+    sqlcmd -S localhost -U sa -P "n0-Password" -Q "ALTER DATABASE cats_test SET SINGLE_USER WITH ROLLBACK IMMEDIATE"
+    echo "Done"
+
+    echo "Dropping Database cats_test..."
+    sqlcmd -S localhost -U sa -P "n0-Password" -Q "DROP DATABASE cats_test"
+    echo "Done"
+
+    echo "Creating Database cats_test..."
+    sqlcmd -S localhost -U sa -P "n0-Password" -Q "CREATE DATABASE cats_test"
+    echo "Done"
+}
