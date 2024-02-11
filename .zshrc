@@ -12,7 +12,22 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_MODE="nerdfont-complete"
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir vcs)
+
+# If not using custom virtualenv 
+# and want to,change default color of virtualenv
+# uncomment below lines
+# POWERLEVEL9K_VIRTUALENV_FOREGROUND='black'
+# POWERLEVEL9K_VIRTUALENV_BACKGROUND='white'
+
+zsh_custom_virtualenv() {
+    if [[ -n $VIRTUAL_ENV ]]; then
+        local env_name=$(basename "$VIRTUAL_ENV")
+        echo -n "%F{black}(${env_name})%{%f%} "
+    fi
+}
+
+POWERLEVEL9K_CUSTOM_VIRTUALENV="zsh_custom_virtualenv"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_virtualenv dir newline vcs)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
