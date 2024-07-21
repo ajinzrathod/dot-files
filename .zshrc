@@ -1,5 +1,12 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -9,16 +16,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_MODE="nerdfont-complete"
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\n "
-
-# If not using custom virtualenv 
-# and want to,change default color of virtualenv
-# uncomment below lines
-# POWERLEVEL9K_VIRTUALENV_FOREGROUND='black'
-# POWERLEVEL9K_VIRTUALENV_BACKGROUND='white'
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 zsh_custom_virtualenv() {
     if [[ -n $VIRTUAL_ENV ]]; then
@@ -27,9 +25,8 @@ zsh_custom_virtualenv() {
     fi
 }
 
-POWERLEVEL9K_CUSTOM_VIRTUALENV="zsh_custom_virtualenv"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_virtualenv dir vcs)
-
+POWERLEVEL10K_CUSTOM_VIRTUALENV="zsh_custom_virtualenv"
+POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(virtualenv dir vcs)
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -90,12 +87,14 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_virtualenv dir vcs)
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# plugins=(git)
 plugins=(
-    git
-    dnf
-    zsh-syntax-highlighting
-    zsh-autosuggestions
-    virtualenv
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  zsh-completions
+  fzf
+  virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -126,5 +125,53 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Source fzf key bindings and fuzzy completion
+[ -f ~/.fzf/shell/key-bindings.zsh ] && source ~/.fzf/shell/key-bindings.zsh
+[ -f ~/.fzf/shell/completion.zsh ] && source ~/.fzf/shell/completion.zsh
+
+# Use ripgrep (rg) for the default fzf command if installed
+if command -v rg > /dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+else
+  # Use find as fallback
+  export FZF_DEFAULT_COMMAND='find . -type f'
+fi
+
+# Improve fzf history search
+export FZF_CTRL_R_OPTS="--preview 'echo {}'"
+
+# Initialize Zsh completion system
+autoload -Uz compinit && compinit
+
+# Bind fzf to Ctrl+T for file/directory finder
+bindkey '^T' fzf-file-widget
+
+# Bind fzf to Ctrl+R for command history
+bindkey '^R' fzf-history-widget
+
+export PATH="$HOME/development/flutter_linux_3.22.1-stable/flutter/bin:$PATH"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+# cuda
+export PATH="$PATH:/usr/local/cuda-12.5/bin"
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [ -f ~/.env_vars ]; then source ~/.env_vars; fi
