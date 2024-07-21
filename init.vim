@@ -1,3 +1,5 @@
+" ~/.config/nvim/init.vim
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
